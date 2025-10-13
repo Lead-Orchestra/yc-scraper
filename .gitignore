@@ -1,13 +1,27 @@
+# Python
 .venv/
-*~
-**/.DS_Store
-.ipynb_checkpoints
-.vscode
-*.html
+__pycache__/
 *.pyc
-*ipynb
+*.pyo
+*.pyd
+
+# IDE
+.vscode/
+.ipynb_checkpoints/
+*.ipynb
+
+# System
+.DS_Store
+*~
+
+# Logs
 geckodriver.log
 
-# Output files
+# Generated/Output files
 output.jl
+output.json
+output.csv
 start_urls.txt
+url_cache.json
+scrape_checkpoint.json
+data/
