@@ -59,7 +59,9 @@ class YCombinator(scrapy.Spider):
             jo = json.loads(st)
             jc = jo['props']['company']
             
-            # Extract and yield company data
+            founders = jc.get('founders', [])
+            
+            # Extract and yield company data with enhanced founder information
             yield {
                 'company_id': jc.get('id'),
                 'company_name': jc.get('name'),
@@ -71,8 +73,18 @@ class YCombinator(scrapy.Spider):
                 'location': jc.get('location'),
                 'country': jc.get('country'),
                 'year_founded': jc.get('year_founded'),
-                'num_founders': len(jc.get('founders', [])),
-                'founders_names': [f.get('full_name') for f in jc.get('founders', [])],
+                'num_founders': len(founders),
+                'founders_names': [f.get('full_name') for f in founders if f.get('full_name')],
+                'founder_details': [
+                    {
+                        'name': f.get('full_name'),
+                        'title': f.get('title'),
+                        'bio': f.get('founder_bio'),
+                        'linkedin_url': f.get('linkedin_url'),
+                        'twitter_url': f.get('twitter_url'),
+                    }
+                    for f in founders
+                ],
                 'team_size': jc.get('team_size'),
                 'website': jc.get('website'),
                 'cb_url': jc.get('cb_url'),

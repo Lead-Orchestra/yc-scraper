@@ -3,7 +3,16 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
-A Python scraper for extracting company data from the [Y Combinator directory](https://www.ycombinator.com/companies/).
+A Python scraper for extracting company data from the [Y Combinator directory](https://www.ycombinator.com/companies/), featuring an interactive web-based explorer.
+
+## Features
+
+- 🚀 **User-Friendly Selenium Scraping**: No API keys required - just Firefox and geckodriver
+- 💾 **30-Day URL Caching**: Avoid unnecessary re-scraping
+- 🔄 **Checkpoint/Resume**: Recover from interrupted scrapes
+- 🎯 **Flexible Batch Filtering**: Select specific batches or recent N batches
+- 🌐 **Interactive Web Explorer**: Browse and filter companies with a sleek UI
+- 📊 **Rich Dataset**: Includes founder profiles with bios and social links
 
 ## About Y Combinator
 
@@ -112,6 +121,27 @@ print("\nTop 10 Locations:")
 print(df['location'].value_counts().head(10))
 ```
 
+### Optional: Launch Web Explorer
+
+After scraping, you can launch an interactive web-based explorer:
+
+```bash
+# Convert scraped data to JSON format for the web UI
+python scripts/convert_output_to_json.py
+
+# Launch local web server
+python -m http.server 3000
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
+
+**Web Explorer Features:**
+- 🔍 Real-time search and filtering by batch, tags, and keywords
+- 📊 Sortable directory with ascending/descending options
+- 👥 Full founder profiles with bios and social links
+- 📥 Export filtered results as JSON
+- ⚡ Lazy loading for smooth performance with thousands of companies
+
 ## Data Schema
 
 | Attribute         | Description                       | Type   |
@@ -128,6 +158,7 @@ print(df['location'].value_counts().head(10))
 | year_founded      | Year founded                      | int    |
 | num_founders      | Number of founders                | int    |
 | founders_names    | List of founder names             | list   |
+| founder_details   | Extended bios and social links    | list   |
 | team_size         | Number of employees               | int    |
 | website           | Company website                   | string |
 | cb_url            | Crunchbase URL                    | string |
@@ -218,13 +249,16 @@ For a pre-scraped dataset, check out [Y Combinator Directory on Kaggle](https://
 
 MIT License - see [LICENSE](LICENSE) for details.
 
-## Author
+## Contributors
 
-**Miguel Corral Jr.**
-
+**Original Author**: Miguel Corral Jr.
 - Email: corraljrmiguel@gmail.com
 - LinkedIn: [linkedin.com/in/imiguel](https://www.linkedin.com/in/imiguel)
 - GitHub: [github.com/corralm](https://github.com/corralm)
+
+**Web Explorer Contributor**: Tario You
+- LinkedIn: [linkedin.com/in/tario-you](https://linkedin.com/in/tario-you)
+- Contributions: Interactive web UI, enhanced founder profiles
 
 ---
 
