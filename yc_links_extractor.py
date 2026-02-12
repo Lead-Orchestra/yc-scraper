@@ -15,6 +15,8 @@ from selenium.common.exceptions import (
     TimeoutException,
     WebDriverException
 )
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from webdriver_manager.firefox import GeckoDriverManager
 from tqdm import tqdm
 
 # Configure logging
@@ -42,10 +44,22 @@ def make_driver(headless: bool = True) -> Optional[Firefox]:
         Firefox WebDriver instance or None if creation fails
     """
     try:
+        import platform
+        import os
+        
         firefox_options = Options()
+        
+        # Explicitly set binary location for Windows if it exists
+        if platform.system() == 'Windows':
+            default_path = r"C:\Program Files\Mozilla Firefox\firefox.exe"
+            if os.path.exists(default_path):
+                firefox_options.binary_location = default_path
+        
         if headless:
             firefox_options.add_argument('-headless')
-        driver = Firefox(options=firefox_options)
+        
+        service = FirefoxService(GeckoDriverManager().install())
+        driver = Firefox(service=service, options=firefox_options)
         logger.info("Firefox WebDriver created successfully")
         return driver
     except WebDriverException as e:

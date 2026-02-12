@@ -11,3 +11,4 @@ pandas>=2.2.0
 
 # Additional helpful packages
 lxml==5.1.0  # Required by Scrapy for parsing
+webdriver-manager==4.0.1
